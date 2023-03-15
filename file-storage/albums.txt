@@ -1,0 +1,10 @@
+[04/Sep/2006:23:51:46 +0200] | 14.25 | The Devil Put Dinosaurs Here | Alice in Chains
+[13/Nov/2011:12:15:21 +0200] | 17.55 | Rainier Fog | Alice in Chains
+[30/Dec/2022:14:18:38 +0200] | 26.10 | Harry's House | Harry Styles
+[02/Jun/2005:19:23:44 +0200] | 13.65 | We are the chaos | Marilin Manson
+[13/Dec/2008:23:51:16 +0200] | 19.28 | Heaven Upside Down | Marilin Manson
+[28/Apr/2011:13:49:27 +0200] | 23.15 | The Pale Emperor | Marilin Manson
+[02/Jun/2005:19:23:44 +0200] | 13.65 | Billion Dollor Babies | Alice Cooper
+[13/Dec/2008:23:51:16 +0200] | 19.28 | Theatre of Death | Alice Cooper
+
+

@@ -4,17 +4,31 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
+	"io"
 	"log"
 	"os"
+	"strings"
 
+	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
 )
 
 const dbStoragePath string = `../db-storage/`
+const fileStoragePath string = `../file-storage/`
 
 var db *sql.DB
+
+type dbWrapper struct {
+	Field1 string
+	Field2 string
+	Field3 string
+	Field4 string
+}
+
+var DATA []dbWrapper
 
 // dbSettingCmd represents the dbSetting command
 var dbSettingCmd = &cobra.Command{
@@ -27,6 +41,13 @@ var dbSettingCmd = &cobra.Command{
 
 		dbCommand, _ := cmd.Flags().GetString("ops")
 		dbName, _ := cmd.Flags().GetString("dbName")
+		dbFilePath := dbStoragePath + dbName
+		var err error
+
+		db, err = sql.Open("sqlite3", dbFilePath)
+		if err != nil {
+			log.Fatalf("Didn't manage to open the .db file '%s'\n", dbFilePath)
+		}
 
 		switch dbCommand {
 		case "list-db":
@@ -39,12 +60,43 @@ var dbSettingCmd = &cobra.Command{
 			for _, item := range entries {
 				fmt.Printf("\t.db file: %v\n", item.Name())
 			}
+
 		case "show":
 			if dbName != "none" {
-				//dbFilePath := dbStoragePath
-				//db, err := sql.Open("sqlite3")
+				nameSplit := strings.Split(dbName, ".")
+				fileName := fileStoragePath + nameSplit[0] + ".txt"
+
+				f, err := os.Open(fileName)
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				amountOfColumns := 0
+				reader := bufio.NewReader(f)
+				for {
+					line, err := reader.ReadString('\n')
+					if err == io.EOF {
+						break
+					} else if err != nil {
+						log.Fatal(err)
+					}
+
+					lineSplit := strings.Split(line, " | ")
+					amountOfColumns = len(lineSplit)
+					break
+				}
+
+				DATA, err = printDatabaseTableData(amountOfColumns)
+				for _, item := range DATA {
+					fmt.Printf("%q\n", item)
+				}
+
+			} else {
+				fmt.Println("Pass name of the database to the option --dbName {name.db}")
+				break
 			}
 		}
+
 	},
 }
 
@@ -59,4 +111,27 @@ func availableFunctionality() {
 	fmt.Println("\t--ops list-db (default) - prints out the list of all available databases")
 	fmt.Println("\t--ops show --dbName {name of the db file} - print out the db data")
 	fmt.Println()
+}
+
+func printDatabaseTableData(colms int) ([]dbWrapper, error) {
+	rows, err := db.Query("SELECT * FROM data")
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+
+	var temp1 string
+	var temp2 string
+	var temp3 string
+	var temp4 string
+
+	if colms == 4 {
+		for rows.Next() {
+			err = rows.Scan(&temp1, &temp2, &temp3, &temp4)
+			temp := dbWrapper{temp1, temp2, temp3, temp4}
+			DATA = append(DATA, temp)
+		}
+	}
+
+	return DATA, nil
 }
