@@ -23,7 +23,7 @@ ___________________________________
 ![result1](https://github.com/ellofae/Cobra-cmd-utility/blob/main/imgs/Screenshot%20from%202023-03-15%2021-47-50.png?raw=true)
 
 ### dbSetting
-**dbSetting** позволяет вывести информацию о доступных пользователю баз данных каталога **(./db-storage/...)** командой: --ops **[OPTION]**
+**dbSetting** позволяет вывести информацию о доступных пользователю базах данных каталога **(./db-storage/...)** командой: --ops **[OPTION]**
 * --ops list-db (default) - показывает все доступные пользователю базы данных из каталога **(./db-storage/...)**
 * --ops show --dbName **{name.db}** - выводит данные из таблицы **data** базы данных **{name.db}**
 
