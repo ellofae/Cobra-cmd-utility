@@ -29,3 +29,5 @@ ___________________________________
 
 ## Пример использования dbSetting:
 ![result1](https://github.com/ellofae/Cobra-cmd-utility/blob/main/imgs/Screenshot%20from%202023-03-15%2021-54-39.png?raw=true)
+
+![result1](https://github.com/ellofae/Cobra-cmd-utility/blob/main/imgs/Screenshot%20from%202023-03-15%2021-43-34.png?raw=true)
