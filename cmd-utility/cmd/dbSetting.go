@@ -32,9 +32,10 @@ var DATA []dbWrapper
 
 // dbSettingCmd represents the dbSetting command
 var dbSettingCmd = &cobra.Command{
-	Use:   "dbSetting",
-	Short: "Command supplier the user with functions to manage availabe data in the project",
-	Long:  `Command supplier the user with functions to manage availabe data in the project`,
+	Use:     "dbSetting",
+	Aliases: []string{"dbInfo", "dbState"},
+	Short:   "Command supplier the user with functions to manage availabe data in the project",
+	Long:    `Command supplier the user with functions to manage availabe data in the project`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Database managing system called:")
 		availableFunctionality()
@@ -70,6 +71,7 @@ var dbSettingCmd = &cobra.Command{
 				if err != nil {
 					log.Fatal(err)
 				}
+				defer f.Close()
 
 				amountOfColumns := 0
 				reader := bufio.NewReader(f)
@@ -86,9 +88,13 @@ var dbSettingCmd = &cobra.Command{
 					break
 				}
 
-				DATA, err = printDatabaseTableData(amountOfColumns)
-				for _, item := range DATA {
-					fmt.Printf("%q\n", item)
+				if amountOfColumns == 4 {
+					DATA, err = printDatabaseTableData(amountOfColumns)
+					for _, item := range DATA {
+						fmt.Printf("%q\n", item)
+					}
+				} else {
+					log.Fatal("Utility can print out the db only with 4 columns")
 				}
 
 			} else {
@@ -109,7 +115,7 @@ func init() {
 func availableFunctionality() {
 	fmt.Println("Welcome to the db manager. Available options:")
 	fmt.Println("\t--ops list-db (default) - prints out the list of all available databases")
-	fmt.Println("\t--ops show --dbName {name of the db file} - print out the db data")
+	fmt.Println("\t--ops show --dbName {name.db} - print out the db data")
 	fmt.Println()
 }
 
