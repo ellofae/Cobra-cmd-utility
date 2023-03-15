@@ -11,4 +11,4 @@ ___________________________________
 * --spec mem (или --spec memory) - показывает информацию о памяти.
 
 ## Пример использования sysinfo:
-![result1]([![image]((https://github.com/ellofae/Cobra-cmd-utility/blob/main/imgs/Screenshot%20from%202023-03-15%2022-05-44.png?raw=true))
+![result1](https://github.com/ellofae/Cobra-cmd-utility/blob/main/imgs/Screenshot%20from%202023-03-15%2022-05-44.png?raw=true)
