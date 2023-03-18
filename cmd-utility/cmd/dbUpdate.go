@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+Copyright © 2023 ELLOFAE <sergei.bykovskiy2003@gmail.com>
 */
 package cmd
 
